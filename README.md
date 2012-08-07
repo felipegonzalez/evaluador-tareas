@@ -25,13 +25,21 @@ Estas instrucciones funcionan en una instancia de Amazon ec2 Ubuntu 12.04 (por s
 (con sudo).
 
 4) Configurar mysql
-- Crear usuario evaluador (en consola de mysql)
+
+- Crear usuario evaluador (en consola de mysql) 
+
 	create user 'evaluador'@'localhost' identified by 'password';
-	create database Evaluador
-       character set 'utf8';
+	create database Evaluador character set 'utf8';
     grant all on aprendizaje.* to evaluador@localhost;
+
 - Crear tablas
+
 	mysql -u evaluador -p --verbose < crear_tablas.sql 
+
+- Agregar un usuario de prueba
+
+	use aprendizaje;
+
 
 
 Cómo usar
