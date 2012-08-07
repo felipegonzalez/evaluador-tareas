@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 # Aplicación de sinatra
-
+require 'rubygems'
 require 'sinatra'
+
+use Rack::Auth::Basic, "Restricted Area" do |username, password|
+  [username, password] == ['admin', 'admin']
+end
 
 get '/' do
   'Evaluador de Tareas'
@@ -17,3 +21,5 @@ post '/evaluador' do
   puts(funcion)
   "Recibido"
 end
+
+
