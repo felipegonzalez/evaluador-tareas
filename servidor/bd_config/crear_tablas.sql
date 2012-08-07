@@ -1,5 +1,5 @@
 -- Crear tablas para la base de SQL
-use evaluador;
+use aprendizaje;
 
 create table usuarios (
        IDusuario      int		NOT NULL	AUTO_INCREMENT,
