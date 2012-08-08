@@ -19,6 +19,7 @@ Estas instrucciones funcionan en una instancia de Amazon ec2 Ubuntu 12.04 (por s
 	sudo apt-get install libcurl4-gnutls-dev
 
 2) Instalar gems de ruby:
+	
 	sudo gem install sinatra
 	sudo gem install haml
 
@@ -45,16 +46,22 @@ Agregar un usuario de prueba
 
 5) Preparar servidor
 
-Copiar R, cliente, servidor a salidas 
+Copiar carpetas de R, cliente, servidor a salidas 
 
 Correr 
 
 	sudo ruby evaluador.rb
 
-6) Checar instalación
+6) Checar instalación: abrir http://dirección-de-ip/
 
-abrir http://dirección-de-ip/
 
 Cómo usar
 ---------
+
+1) Crear usuarios (estudiantes) con algún password. Estos passwords pueden cambiarse. Una vez que se entra al sitio se pueden ver todos los trabajos enviados de ese usuario.
+
+2) Preparar una tarea: escribir un documento (con instrucciones) basado en scripts que dan salidas correctas en cada ejercicio. Estos scripts llaman funciones correctas. Después, deben escribirse versiones incompletas de estas funciones. Se distribuye el documento con instrucciones y las funciones incompletas.
+
+3) Del lado del servidor, subimos las respuestas correctas, y escribimos
+funciones de prueba para cada una de las respuestas correctas ???
 
