@@ -39,10 +39,22 @@ Estas instrucciones funcionan en una instancia de Amazon ec2 Ubuntu 12.04 (por s
 
 - Agregar un usuario de prueba
 
-	use aprendizaje;
+	insert into usuarios (clave,nombre,pass) values (10101,'pedro','pass');
+
+ (o tantos usuarios como ser requiere)
+
+5) Preparar servidor
 
 
+- Copiar R, cliente, servidor a salidas 
 
+- correr 
+	sudo ruby evaluador.rb
+
+6) Checar instalación
+
+	- abrir http://dirección-de-ip/
+	
 Cómo usar
 ---------
 
