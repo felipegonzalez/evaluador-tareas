@@ -36,7 +36,6 @@ post '/cambiarP' do
   # hacer consulta para ecnontrar el id de usuario
   con = Mysql.new('localhost','evaluador','bowles','aprendizaje')
   res = con.query("select IDusuario from usuarios where nombre='#{usuario}' and pass = '#{pass}'")  
-  puts(res.num_rows)
   if res.num_rows >= 1
     row = res.fetch_row
     id = row[0]
@@ -60,17 +59,24 @@ post '/evaluador' do
   tarea = params[:tarea]
   ejercicio = params[:ejercicio]
   funcion = params[:funcion]
+  puts(nombre)
+  puts(pass)
+  puts(tarea)
+  puts(ejercicio)
+  puts(funcion)
+  puts("hoola")
   con = Mysql.new('localhost','evaluador','bowles','aprendizaje')
-  res = con.query("select IDusuario from usuarios here nombre='#{nombre}' and pass='#{pass}'")
+  res = con.query("select IDusuario from usuarios where nombre='#{nombre}' and pass='#{pass}'")
   if res.num_rows >= 1
-    row = res.fecht_row
+    row = res.fetch_row
     id = row[0]
     con.close()
+    puts(funcion)
     con = Mysql.new('localhost','evaluador','bowles','aprendizaje')
-    con.query("insert into usuarios (IDusuario,tarea,ejercicio,objeto,evaluado,calificacion) value (#{IDusuario},#{tarea},#{ejercicio},#{funcion},NULL,NULL)")
-    res ="Recibido"
+    con.query("insert into entregas (IDusuario,tarea,ejercicio,objeto,evaluado,calificacion) values (#{id},#{tarea},#{ejercicio},'#{funcion}',0,NULL)")
+    res ="Recibido\n"
   else
-    res = "Fallo"
+    res = "Fallo\n"
   end
   res
 end
