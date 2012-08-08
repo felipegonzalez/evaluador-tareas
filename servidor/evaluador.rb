@@ -2,12 +2,16 @@
 # Aplicación de sinatra
 require 'rubygems'
 require 'sinatra'
+require 'mysql'
 
 set :port, 80
 
-
 use Rack::Auth::Basic, "Restricted Area" do |username, password|
-  [username, password] == ['admin', 'admin']
+  # hacer consultas a la base de datos para hacer la autenticación
+  con = Mysql.new('localhost','evaluador','bowles','aprendizaje')
+  res = con.query("select * from usuarios where nombre = '#{username}' and pass = '#{password}'")
+  con.close()
+  res.num_rows() >= 1
 end
 
 get '/' do
