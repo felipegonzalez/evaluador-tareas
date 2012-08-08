@@ -2,4 +2,11 @@
 %html
   %title Cambiar contraseña
 %body
-  
+  %form(action="/cambiarP" method="post")
+    %label Usuario:
+    %input(id="nombre" name="nombre" type="text")
+    %label Contraseña:
+    %input(id="pass" name="pass" type="password")
+    %label Nueva contraseña:
+    %input(id="npass" name="npass" type="password")
+    %input(id="boton" type="submit" value="Enviar")

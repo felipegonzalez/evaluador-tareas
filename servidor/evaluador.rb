@@ -17,8 +17,38 @@ use Rack::Auth::Basic, "Restricted Area" do |username, password|
   res.num_rows() >= 1
 end
 
+# redirecciones a templates
+
 get '/' do
   haml :home
+end
+
+get '/cambiar' do
+  haml :cambiar
+end
+
+# Cambiar contraseña
+
+post '/cambiarP' do
+  usuario = params[:nombre]
+  pass = params[:pass]
+  npass = params[:npass]
+  # hacer consulta para ecnontrar el id de usuario
+  con = Mysql.new('localhost','evaluador','bowles','aprendizaje')
+  res = con.query("select IDusuario from usuarios where nombre='#{usuario}' and pass = '#{pass}'")  
+  puts(res.num_rows)
+  if res.num_rows >= 1
+    row = res.fetch_row
+    id = row[0]
+    con.close()
+    con = Mysql.new('localhost','evaluador','bowles','aprendizaje')
+    con.query("update usuarios set pass ='#{npass}' where IDusuario =#{id}")
+    con.close()
+  else
+    con.close()
+    redirect to('/cambiar')
+  end
+  redirect to('/')
 end
 
 post '/evaluador' do
