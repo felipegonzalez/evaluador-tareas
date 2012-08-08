@@ -9,6 +9,7 @@ set :port, 80
 set :haml, :format => :html5
 set :views, settings.root + '/templates'
 
+
 use Rack::Auth::Basic, "Restricted Area" do |username, password|
   # hacer consultas a la base de datos para hacer la autenticación
   con = Mysql.new('localhost','evaluador','bowles','aprendizaje')
