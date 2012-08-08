@@ -18,7 +18,7 @@ enviar.fun <- function(nombre, my_key, funcion.archivo, tarea, ejercicio, nombre
    curlSetOpt(.opts = list(userpwd = "admin:admin"),
               curl = curl)
    # autenticacion
-   html <- postForm(servidor, nombre = nombre, my_key=my_key, tarea=tarea,ejercicio=ejercicio, funcion=texto.fun, style="httppost",
+   html <- postForm(servidor, nombre = nombre, pass=my_key, tarea=tarea,ejercicio=ejercicio, funcion=texto.fun, style="httppost",
       .encoding='utf-8',curl=curl)
    cat(html)
    cat('Puedes ver tus resultados en: \n')

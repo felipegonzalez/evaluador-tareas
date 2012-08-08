@@ -51,18 +51,28 @@ post '/cambiarP' do
   redirect to('/')
 end
 
+# recibir y guardar las tareas
+
 post '/evaluador' do
   # recibir los paramétros
   nombre = params[:nombre]
-  my_key = params[:my_key]
+  pass = params[:pass]
   tarea = params[:tarea]
   ejercicio = params[:ejercicio]
   funcion = params[:funcion]
   con = Mysql.new('localhost','evaluador','bowles','aprendizaje')
-  #1.sacar el id
-  #2. insertar en tabla de tareas
-  con.close()
-  "Recibido"
+  res = con.query("select IDusuario from usuarios here nombre='#{nombre}' and pass='#{pass}'")
+  if res.num_rows >= 1
+    row = res.fecht_row
+    id = row[0]
+    con.close()
+    con = Mysql.new('localhost','evaluador','bowles','aprendizaje')
+    con.query("insert into usuarios (IDusuario,tarea,ejercicio,objeto,evaluado,calificacion) value (#{IDusuario},#{tarea},#{ejercicio},#{funcion},NULL,NULL)")
+    res ="Recibido"
+  else
+    res = "Fallo"
+  end
+  res
 end
 
 
