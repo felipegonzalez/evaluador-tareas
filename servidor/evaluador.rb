@@ -3,8 +3,11 @@
 require 'rubygems'
 require 'sinatra'
 require 'mysql'
+require 'haml'
 
 set :port, 80
+set :haml, :format => :html5
+set :views, settings.root + '/templates'
 
 use Rack::Auth::Basic, "Restricted Area" do |username, password|
   # hacer consultas a la base de datos para hacer la autenticación
@@ -15,7 +18,7 @@ use Rack::Auth::Basic, "Restricted Area" do |username, password|
 end
 
 get '/' do
-  'Evaluador de Tareas'
+  haml :home
 end
 
 post '/evaluador' do
@@ -25,7 +28,10 @@ post '/evaluador' do
   tarea = params[:tarea]
   ejercicio = params[:ejercicio]
   funcion = params[:funcion]
-  puts(funcion)
+  con = Mysql.new('localhost','evaluador','bowles','aprendizaje')
+  #1.sacar el id
+  #2. insertar en tabla de tareas
+  con.close()
   "Recibido"
 end
 

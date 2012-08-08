@@ -20,6 +20,7 @@ Estas instrucciones funcionan en una instancia de Amazon ec2 Ubuntu 12.04 (por s
 
 2) Instalar gems de ruby:
 	sudo gem install sinatra
+	sudo gem install haml
 
 3) Instalar RCurl y paquetes adicionales que se requieran para R
 (con sudo).
