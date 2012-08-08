@@ -27,34 +27,34 @@ Estas instrucciones funcionan en una instancia de Amazon ec2 Ubuntu 12.04 (por s
 
 4) Configurar mysql
 
-- Crear usuario evaluador (en consola de mysql) 
+Crear usuario evaluador (en consola de mysql) 
 
 	create user 'evaluador'@'localhost' identified by 'password';
 	create database Evaluador character set 'utf8';
     grant all on aprendizaje.* to evaluador@localhost;
 
-- Crear tablas
+Crear tablas
 
 	mysql -u evaluador -p --verbose < crear_tablas.sql 
 
-- Agregar un usuario de prueba
+Agregar un usuario de prueba
 
 	insert into usuarios (clave,nombre,pass) values (10101,'pedro','pass');
 
- (o tantos usuarios como ser requiere)
+(o tantos usuarios como ser requiere)
 
 5) Preparar servidor
 
+Copiar R, cliente, servidor a salidas 
 
-- Copiar R, cliente, servidor a salidas 
+Correr 
 
-- correr 
 	sudo ruby evaluador.rb
 
 6) Checar instalación
 
-	- abrir http://dirección-de-ip/
-	
+abrir http://dirección-de-ip/
+
 Cómo usar
 ---------
 
