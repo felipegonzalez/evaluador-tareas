@@ -24,7 +24,7 @@ Estas instrucciones funcionan en una instancia de Amazon ec2 Ubuntu 12.04 (por s
 	sudo gem install haml
 
 3) Instalar RCurl y paquetes adicionales que se requieran para R
-(con sudo).
+(con sudo). Se requieren RmySQL, R.utils, yaml y RCurl
 
 4) Configurar mysql
 
@@ -46,7 +46,11 @@ Agregar un usuario de prueba
 
 5) Preparar servidor
 
-Copiar carpetas de R, cliente, servidor a salidas 
+Copiar carpetas de R, cliente, servidor a salidas. 
+
+Configurar parámetros básicos en archivo config.yml (servidor es 'localhost',
+y luego nombre de la base, usuario de mysql y su password).
+
 
 Correr 
 
@@ -60,7 +64,7 @@ Cómo usar
 
 1) Crear usuarios (estudiantes) con algún password. Estos passwords pueden cambiarse. Una vez que se entra al sitio se pueden ver todos los trabajos enviados de ese usuario.
 
-2) Preparar una tarea: escribir un documento (con instrucciones) basado en scripts que dan salidas correctas en cada ejercicio. Estos scripts llaman funciones correctas. Después, deben escribirse versiones incompletas de estas funciones. Se distribuye el documento con instrucciones y las funciones incompletas.
+2) Preparar una tarea: escribir un documento (con instrucciones) basado en scripts que dan salidas correctas en cada ejercicio. Se distribuye el documento con instrucciones y las funciones incompletas.
 
 3) Del lado del servidor, subimos las respuestas correctas, y escribimos
 funciones de prueba para cada una de las respuestas correctas ???
