@@ -16,6 +16,8 @@ g(-2)
 curve(g, from=-4, to=4)
 ```
 
+*Completa el script logit.R y envía tu resultado*
+
 ## Ejercicio 2
 
 Recuerda que si
@@ -56,20 +58,28 @@ z <- (outer(theta_x, theta_y, Vectorize(J.1)))
 contour(theta_x,theta_y,z,  nlevels=10)
 ```
 
+
+*Completa el script J_perdida.R y envía tu resultado*
+
+
 ## Ejercicio 3
 
-Ahora implementamos el cálculo del gradiente para después usar descenso máximo. Escribe tu función en `gradiente.R`
+Ahora implementamos el cálculo del gradiente para después usar descenso máximo. Escribe tu función en `J_gradiente.R`
 
 ```{r}
-source('funciones/gradiente.R')
+source('funciones/J_gradiente.R')
 J.grad.1 <- J.grad(y, X)
 J.grad.1(c(0,0))
 J.grad.1(c(-1,0))
 ```
 
+*Completa el script J_gradiente.R y envía tu resultado*
+
+
+
 ## Ejercicio 4
 
-Finalmente encontramos $\theta$ que minimiza la pérdida empírica. Usaremos la funcion `optim`
+Finalmente encontramos $\theta$ que minimiza la pérdida empírica. Podríamos usar alguno de los algoritmos de la funcion `optim` :
 
 ```{r plot2, fig.width=4, fig.height=4}
 resultado <- optim(c(0,0), J)
@@ -77,3 +87,34 @@ resultado$par
 contour(theta_x,theta_y,z,  nlevels=10)
 points(resultado$par[1], resultado$par[2], col='red', pch=20)
 ```
+
+En este ejemplo resolveremos el problema de minimización por el método de descenso máximo. Implementa la función `descenso`  en `descenso.R`, que toma una función de pérdida, su gradiente, el tamaño de paso, y la tolerancia:
+
+```{r}
+source('funciones/descenso.R')
+descenso(perdida = J, gradiente = J.grad.1, inicio=c(0,0), step = 1, n.iter =2)
+```
+
+```{r, fig.width=4, fig.height=4}
+iter <- descenso(perdida = J, gradiente = J.grad.1, inicio=c(0,0), step=1, n.iter=100)
+plot(iter$J)
+iter$theta[[100]]
+```
+
+*Completa el script descenso.R y envía tu resultado*
+
+## Ejercicio 5
+
+```{r}
+library(ElemStatLearn)
+head(spam)
+y <- as.numeric(spam$spam == 'spam')
+X <- scale(as.matrix(spam[, 1:45]))
+J.spam <- J.perdida(y, X)
+J.grad.spam <- J.grad(y, X)
+iter <- descenso(perdida=J.spam, gradiente=J.grad.spam, inicio=rep(0,45), step=1, n.iter=200)
+plot(iter$J)
+plot(iter$theta[[200]])
+```
+
+

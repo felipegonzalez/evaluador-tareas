@@ -34,6 +34,8 @@ curve(g, from = -4, to = 4)
 ![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1.png) 
 
 
+*Completa el script logit.R y envía tu resultado*
+
 ## Ejercicio 2
 
 Recuerda que si
@@ -94,13 +96,17 @@ contour(theta_x, theta_y, z, nlevels = 10)
 ![plot of chunk plot1](figure/plot1.png) 
 
 
+
+*Completa el script J_perdida.R y envía tu resultado*
+
+
 ## Ejercicio 3
 
-Ahora implementamos el cálculo del gradiente para después usar descenso máximo. Escribe tu función en `gradiente.R`
+Ahora implementamos el cálculo del gradiente para después usar descenso máximo. Escribe tu función en `J_gradiente.R`
 
 
 ```r
-source("funciones/gradiente.R")
+source("funciones/J_gradiente.R")
 J.grad.1 <- J.grad(y, X)
 J.grad.1(c(0, 0))
 ```
@@ -122,9 +128,13 @@ J.grad.1(c(-1, 0))
 ```
 
 
+*Completa el script J_gradiente.R y envía tu resultado*
+
+
+
 ## Ejercicio 4
 
-Finalmente encontramos $\theta$ que minimiza la pérdida empírica. Usaremos la funcion `optim`
+Finalmente encontramos $\theta$ que minimiza la pérdida empírica. Podríamos usar alguno de los algoritmos de la funcion `optim` :
 
 
 ```r
@@ -142,4 +152,50 @@ points(resultado$par[1], resultado$par[2], col = "red", pch = 20)
 ```
 
 ![plot of chunk plot2](figure/plot2.png) 
+
+
+En este ejemplo resolveremos el problema de minimización por el método de descenso máximo. Implementa la función `descenso`  en `descenso.R`, que toma una función de pérdida, su gradiente, el tamaño de paso, y la tolerancia:
+
+
+```r
+source("funciones/descenso.R")
+descenso(perdida = J, gradiente = J.grad.1, inicio = c(0, 0), step = 1, n.iter = 2)
+```
+
+```
+## $theta
+## $theta[[1]]
+## [1] 0 0
+## 
+## $theta[[2]]
+## [1] 0.09444 0.05556
+## 
+## 
+## $J
+## [1] 6.238 6.147
+## 
+```
+
+
+
+```r
+iter <- descenso(perdida = J, gradiente = J.grad.1, inicio = c(0, 0), step = 1, 
+    n.iter = 100)
+plot(iter$J)
+```
+
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
+
+```r
+iter$theta[[100]]
+```
+
+```
+## [1] 0.3027 0.2495
+```
+
+
+*Completa el script descenso.R y envía tu resultado*
+
+
 
