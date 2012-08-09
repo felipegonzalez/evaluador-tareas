@@ -4,15 +4,24 @@ require 'rubygems'
 require 'sinatra'
 require 'mysql'
 require 'haml'
+require 'yaml'
 
 set :port, 80
 set :haml, :format => :html5
 set :views, settings.root + '/templates'
 
+# configuracion
+configure do
+  conf = open('./config.yml') { |f| YAML.load(f)}
+  set :servidor, conf['servidor']
+  set :user, conf['user']
+  set :pass, conf['pass']
+  set :bd, conf['bd']
+end
 
 use Rack::Auth::Basic, "Restricted Area" do |username, password|
   # hacer consultas a la base de datos para hacer la autenticación
-  con = Mysql.new('localhost','evaluador','bowles','aprendizaje')
+  con = Mysql.new(settings.servidor,settings.user,settings.pass,settings.bd)
   res = con.query("select * from usuarios where nombre = '#{username}' and pass = '#{password}'")
   con.close()
   res.num_rows() >= 1
@@ -35,13 +44,13 @@ post '/cambiarP' do
   pass = params[:pass]
   npass = params[:npass]
   # hacer consulta para ecnontrar el id de usuario
-  con = Mysql.new('localhost','evaluador','bowles','aprendizaje')
+  con = Mysql.new(settings.servidor,settings.user,settings.pass,settings.bd)
   res = con.query("select IDusuario from usuarios where nombre='#{usuario}' and pass = '#{pass}'")  
   if res.num_rows >= 1
     row = res.fetch_row
     id = row[0]
     con.close()
-    con = Mysql.new('localhost','evaluador','bowles','aprendizaje')
+    con = Mysql.new(settings.servidor,settings.user,settings.pass,settings.bd)
     con.query("update usuarios set pass ='#{npass}' where IDusuario =#{id}")
     con.close()
   else
@@ -66,14 +75,14 @@ post '/evaluador' do
   puts(ejercicio)
   puts(funcion)
   puts("hoola")
-  con = Mysql.new('localhost','evaluador','bowles','aprendizaje')
+  con = Mysql.new(settings.servidor,settings.user,settings.pass,settings.bd)
   res = con.query("select IDusuario from usuarios where nombre='#{nombre}' and pass='#{pass}'")
   if res.num_rows >= 1
     row = res.fetch_row
     id = row[0]
     con.close()
     puts(funcion)
-    con = Mysql.new('localhost','evaluador','bowles','aprendizaje')
+    con = Mysql.new(settings.servidor,settings.user,settings.pass,settings.bd)
     con.query("insert into entregas (IDusuario,tarea,ejercicio,objeto,evaluado,calificacion) values (#{id},#{tarea},#{ejercicio},'#{funcion}',0,NULL)")
     res ="Recibido\n"
   else
