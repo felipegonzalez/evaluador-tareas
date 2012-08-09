@@ -1,4 +1,4 @@
-Tarea 1: Regresión logística y regularización 
+Tarea 1: Regresión logística y clasificación 
 =============================================
 
 En esta tarea se construyen predicciones basadas en regresión logística
@@ -196,6 +196,44 @@ iter$theta[[100]]
 
 
 *Completa el script descenso.R y envía tu resultado*
+
+## Ejercicio 5
+
+
+```r
+library(ElemStatLearn)
+y <- as.numeric(spam$spam == "spam")
+X <- scale(as.matrix(spam[, 1:45]))
+dim(X)
+```
+
+```
+## [1] 4601   45
+```
+
+```r
+length(y)
+```
+
+```
+## [1] 4601
+```
+
+```r
+J.spam <- J.perdida(y, X)
+J.grad.spam <- J.grad(y, X)
+iter <- descenso(perdida = J.spam, gradiente = J.grad.spam, inicio = rep(0, 
+    45), step = 1, n.iter = 200)
+plot(iter$J)
+```
+
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-61.png) 
+
+```r
+plot(iter$theta[[200]])
+```
+
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-62.png) 
 
 
 
