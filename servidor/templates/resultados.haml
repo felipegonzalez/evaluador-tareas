@@ -1,0 +1,21 @@
+!!!
+%html
+  %head
+    %title Resultados
+    %link(rel="stylesheet" href="css/styles.css")
+  %body
+    %h1 Calificaciones
+    %h2 Nombre
+    %p=@username
+    %h2 Resultados
+    %table.table.table-striped
+      %thead
+        %tr
+          %td Tarea
+          %td Ejercicio
+          %td Calificacion
+      %tbody
+        - @res.each do |row|
+          %tr
+            - row.each do |el|
+              %td=el

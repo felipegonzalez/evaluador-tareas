@@ -12,6 +12,7 @@ set :views, settings.root + '/templates'
 
 # configuracion
 configure do
+#  enable :sessions
   conf = open('./config.yml') { |f| YAML.load(f)}
   set :servidor, conf['servidor']
   set :user, conf['user']
@@ -19,11 +20,12 @@ configure do
   set :bd, conf['bd']
 end
 
-use Rack::Auth::Basic, "Restricted Area" do |username, password|
+use Rack::Auth::Basic do |username, password|
   # hacer consultas a la base de datos para hacer la autenticación
   con = Mysql.new(settings.servidor,settings.user,settings.pass,settings.bd)
   res = con.query("select * from usuarios where nombre = '#{username}' and pass = '#{password}'")
   con.close()
+#  session[:username] = username
   res.num_rows() >= 1
 end
 
@@ -91,4 +93,20 @@ post '/evaluador' do
   res
 end
 
+# ver resultados
 
+get '/resultados' do
+  @username = env['REMOTE_USER']
+  con = Mysql.new(settings.servidor,settings.user,settings.pass,settings.bd)
+  res = con.query("select IDusuario from usuarios where nombre='#{@username}'")
+  if res.num_rows >= 1
+    row = res.fetch_row
+    id = row[0]
+    con.close()
+    con = Mysql.new(settings.servidor,settings.user,settings.pass,settings.bd)
+    @res = con.query("select tarea, ejercicio, calificacion from entregas where IDusuario = '#{id}' and evaluado = 1")
+    haml :resultados
+  else
+    redirect to('/')
+  end 
+end
