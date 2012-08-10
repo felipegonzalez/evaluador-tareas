@@ -3,17 +3,13 @@ library(RCurl)
 ## Este es un prototipo de cómo debe funcionar el cliente
 
 enviar.fun <- function(nombre, my_key, funcion.archivo, tarea, ejercicio, nombre.fun){
-   #serv.1 <- 'http://ec2-23-22-24-116.compute-1.amazonaws.com/r/'
-   #servidor.1 <- paste(serv.1, 'aceptar.R', sep='')
-   servidor <- 'http://localhost:4567/evaluador' #para pruebas locales
+   serv.1 <- 'http://ec2-23-22-6-197.compute-1.amazonws.com' #para pruebas locales
+   servidor <- paste(serv1,"/evaluador", sep="") 
    con <- file(funcion.archivo, "r", blocking = TRUE)
-   #source(funcion.archivo)
+   #serializar archivo
    texto.fun <- as.character(base64Encode(rawToChar(serialize(readLines(con), ascii=TRUE, connection=NULL))))
-   #print(Encoding(texto.fun)) 
-   #Encoding(texto.fun) <- 'UTF-8'
    close(con)
    print("ok")
-   #print(texto.fun)
    curl = getCurlHandle()
    curlSetOpt(.opts = list(userpwd = "admin:admin"),
               curl = curl)
@@ -22,9 +18,9 @@ enviar.fun <- function(nombre, my_key, funcion.archivo, tarea, ejercicio, nombre
       .encoding='utf-8',curl=curl)
    cat(html)
    cat('Puedes ver tus resultados en: \n')
-   #cat(paste(serv.1, 'consultar.R', '?nombre=', nombre, sep=''))
+   cat(paste(serv.1, '/resultados', '?nombre=', nombre, sep=''))
    cat('\n')
-   }
+}
 
 
 enviar <- function(){
@@ -33,7 +29,7 @@ enviar <- function(){
    cat("Clave:")
    my_key <- scan(what=character(), n=1, quiet =TRUE)
    cat("Cuál quieres enviar: \n")
-   cat("1 post_binomial.R  \n")
+   cat("1 .R  \n")
    cat("2 iterar_metro.R \n")
    parte <- scan(what=double(), n = 1, quiet=TRUE)
     
