@@ -31,8 +31,21 @@ end
 
 # redirecciones a templates
 
+# ver resultados (página principal)
 get '/' do
-  haml :home
+  @username = env['REMOTE_USER']
+  con = Mysql.new(settings.servidor,settings.user,settings.pass,settings.bd)
+  res = con.query("select IDusuario from usuarios where nombre='#{@username}'")
+  if res.num_rows >= 1
+    row = res.fetch_row
+    id = row[0]
+    con.close()
+    con = Mysql.new(settings.servidor,settings.user,settings.pass,settings.bd)
+    @res = con.query("select tarea, ejercicio, calificacion from entregas where IDusuario = '#{id}' and evaluado = 1")
+    haml :resultados
+  else
+    redirect to('/')
+  end 
 end
 
 get '/cambiar' do
@@ -76,7 +89,6 @@ post '/evaluador' do
   puts(tarea)
   puts(ejercicio)
   puts(funcion)
-  puts("hoola")
   con = Mysql.new(settings.servidor,settings.user,settings.pass,settings.bd)
   res = con.query("select IDusuario from usuarios where nombre='#{nombre}' and pass='#{pass}'")
   if res.num_rows >= 1
@@ -93,20 +105,4 @@ post '/evaluador' do
   res
 end
 
-# ver resultados
 
-get '/resultados' do
-  @username = env['REMOTE_USER']
-  con = Mysql.new(settings.servidor,settings.user,settings.pass,settings.bd)
-  res = con.query("select IDusuario from usuarios where nombre='#{@username}'")
-  if res.num_rows >= 1
-    row = res.fetch_row
-    id = row[0]
-    con.close()
-    con = Mysql.new(settings.servidor,settings.user,settings.pass,settings.bd)
-    @res = con.query("select tarea, ejercicio, calificacion from entregas where IDusuario = '#{id}' and evaluado = 1")
-    haml :resultados
-  else
-    redirect to('/')
-  end 
-end
