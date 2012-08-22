@@ -3,8 +3,8 @@ library(RCurl)
 ## Este es un prototipo de cómo debe funcionar el cliente
 
 enviar.fun <- function(nombre, my_key, funcion.archivo, tarea, ejercicio, nombre.fun){
-   serv.1 <- 'http://ec2-23-22-6-197.compute-1.amazonws.com' #para pruebas locales
-   servidor <- paste(serv1,"/evaluador", sep="") 
+   serv.1 <- 'http://ec2-23-22-6-197.compute-1.amazonaws.com' #para pruebas locales
+   servidor <- paste(serv.1,"/evaluador", sep="") 
    con <- file(funcion.archivo, "r", blocking = TRUE)
    #serializar archivo
    texto.fun <- as.character(base64Encode(rawToChar(serialize(readLines(con), ascii=TRUE, connection=NULL))))
@@ -29,16 +29,36 @@ enviar <- function(){
    cat("Clave:")
    my_key <- scan(what=character(), n=1, quiet =TRUE)
    cat("Cuál quieres enviar: \n")
+   cat("---Tarea 1-----\n")
+   cat("1 logit.R\n")
+   cat("2 J_perdida.R\n")
+   cat("3 J_gradiente.R\n")
+   cat("4 descenso.R\n")
    parte <- scan(what=double(), n = 1, quiet=TRUE)
-   if(as.integer(parte)==1){
+   # parametros de archivos y tareas para mandar
+   print(parte)
+   funcion.archivo <- switch(as.integer(parte),
+                             "logit.R",
+                             "J_perdida.R",
+                             "J_gradiente.R",
+                             "descenso.R")
+   nombre.fun <- switch(as.integer(parte),
+                        "g",
+                        "J.perdida",
+                        "J.grad",
+                        "descenso")
+   tarea <- as.character(1)
+   ejercicio <- as.character(parte)
+   if(as.integer(parte) <= 4){
      enviar.fun(nombre=nombre,
                 my_key=my_key,
-                funcion.archivo='tarea_prueba.R',
-                tarea="1",
-                ejercicio="1",
-                nombre.fun='ejemplo')
+                funcion.archivo=funcion.archivo,
+                tarea=tarea,
+                ejercicio=ejercicio)
    }
+
 }
 
 enviar()
+
 

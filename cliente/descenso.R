@@ -1,3 +1,6 @@
+# Tarea 1 ejercicio 4
+#descenso.R
+
 descenso <- function(perdida, gradiente, inicio, step, n.iter){
   theta.iter <- list()
   theta.iter[[1]] <- inicio
