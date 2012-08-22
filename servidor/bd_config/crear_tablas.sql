@@ -16,4 +16,5 @@ create table if not exists entregas (
        objeto		      text		NOT NULL,
        evaluado		      boolean		NOT NULL,
        calificacion	      int		NULL,
+       ts		      TIMESTAMP		DEFAULT	CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
        primary key(IDentrega));

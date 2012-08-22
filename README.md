@@ -19,30 +19,53 @@ Estas instrucciones funcionan en una instancia de Amazon ec2 Ubuntu 12.04 (por s
 	sudo apt-get install libcurl4-gnutls-dev
 
 2) Instalar gems de ruby:
+	
 	sudo gem install sinatra
 	sudo gem install haml
 
 3) Instalar RCurl y paquetes adicionales que se requieran para R
-(con sudo).
+(con sudo). Se requieren RmySQL, R.utils, yaml y RCurl
 
 4) Configurar mysql
 
-- Crear usuario evaluador (en consola de mysql) 
+Crear usuario evaluador (en consola de mysql) 
 
 	create user 'evaluador'@'localhost' identified by 'password';
 	create database Evaluador character set 'utf8';
     grant all on aprendizaje.* to evaluador@localhost;
 
-- Crear tablas
+Crear tablas
 
 	mysql -u evaluador -p --verbose < crear_tablas.sql 
 
-- Agregar un usuario de prueba
+Agregar un usuario de prueba
 
-	use aprendizaje;
+	insert into usuarios (clave,nombre,pass) values (10101,'pedro','pass');
 
+(o tantos usuarios como ser requiere)
+
+5) Preparar servidor
+
+Copiar carpetas de R, cliente, servidor a salidas. 
+
+Configurar parámetros básicos en archivo config.yml (servidor es 'localhost',
+y luego nombre de la base, usuario de mysql y su password).
+
+
+Correr 
+
+	sudo ruby evaluador.rb
+
+6) Checar instalación: abrir http://dirección-de-ip/
 
 
 Cómo usar
 ---------
+
+1) Crear usuarios (estudiantes) con algún password. Estos passwords pueden cambiarse. Una vez que se entra al sitio se pueden ver todos los trabajos enviados de ese usuario.
+
+2) Preparar una tarea: escribir un documento (con instrucciones) basado en scripts que dan salidas correctas en cada ejercicio. Se distribuye el documento con instrucciones y las funciones incompletas.
+
+3) Del lado del servidor, subimos las respuestas correctas, y escribimos
+funciones de prueba para cada una de las respuestas correctas ???
 
