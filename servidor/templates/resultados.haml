@@ -1,21 +1,33 @@
 !!!
 %html
   %head
-    %title Resultados
+    %title Aprendizaje Estadístico
     %link(rel="stylesheet" href="css/styles.css")
-  %body
-    %h1 Calificaciones
-    %h2 Nombre
-    %p=@username
-    %h2 Resultados
-    %table.table.table-striped
-      %thead
-        %tr
-          %td Tarea
-          %td Ejercicio
-          %td Calificacion
-      %tbody
-        - @res.each do |row|
-          %tr
-            - row.each do |el|
-              %td=el
+  %body  
+    .hero-unit
+      %h1 Aprendizaje Estadístico
+      %p Un calificador autómatico de tareas desarrollado con tecnologías de R, Ruby, Sinatra y Haml y Twitter Bootstrap.    
+    .container
+      .page-header
+        %h3 Usuario
+      %p.lead=@username
+      .page-header
+        %h3 Resultados
+      .row
+        .span5
+          %table.table.table-striped
+            %thead
+              %th Tarea
+              %th Ejercicio
+              %th Calificación
+            %tbody
+              - @res.each do |row|
+                %tr
+                  - row.each do |el|
+                    %td=el
+      .page-header
+        %h3 Administración de cuenta
+      .row
+        .span5
+          %a.btn.btn-primary{ :href => '/cambiar'} Cambiar contraseña  
+    

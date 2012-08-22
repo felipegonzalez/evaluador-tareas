@@ -1,14 +1,25 @@
 !!!
 %html
-  %title Cambiar contraseña
-  %link(rel="stylesheet" href="css/styles.css")
-
-%body
-  %form(action="/cambiarP" method="post")
-    %label Usuario:
-    %input(id="nombre" name="nombre" type="text")
-    %label Contraseña:
-    %input(id="pass" name="pass" type="password")
-    %label Nueva contraseña:
-    %input(id="npass" name="npass" type="password")
-    %input(id="boton" type="submit" value="Enviar")
+  %head
+    %title Cambiar contraseña
+    %link(rel="stylesheet" href="css/styles.css")
+  %body
+    .hero-unit
+      %h1 Aprendizaje Estadístico
+      %p Un calificador autómatico de tareas desarrollado con tecnologías de R, Ruby, Sinatra y Haml y Twitter Bootstrap.     
+    .container
+      .row
+        .span5
+          %form(action="/cambiarP" method="post")
+            %legend Cambiar contraseña
+            %label Usuario:
+            %input(id="nombre" name="nombre" type="text")      
+            %label Contraseña:
+            %input(id="pass" name="pass" type="password")
+            %label Nueva contraseña:
+            %input(id="npass" name="npass" type="password")
+            %label
+            %input.btn.btn-success(id="boton" type="submit" value="Enviar")
+      .row
+        .span5
+          %a.btn.btn.primary{ :href => '/resultados'} Regresar
