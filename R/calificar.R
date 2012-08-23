@@ -65,5 +65,5 @@ if(nrow(datos) >0 ) {
     }
   }
 }
-}
+
 dbDisconnect(con)

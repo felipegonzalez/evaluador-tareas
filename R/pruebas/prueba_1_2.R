@@ -1,4 +1,4 @@
-prueba_2_1 <- function(fun, fun_solucion){
+prueba_1_2 <- function(fun, fun_solucion){
   error.1 <- FALSE
   y <- c(1,0)
   X <- matrix(c(1,2), ncol=1)
