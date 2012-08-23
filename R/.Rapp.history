@@ -1,0 +1,69 @@
+install.packages("R.utils")
+library("yaml")
+install.packages("yaml")
+library(RMySQL)#
+library(RCurl)#
+library(R.utils)#
+library(yaml)
+setwd("~/proyectos/evaluador-tareas/R")
+library(ProjectTemplate)
+load.project()
+funcion.1.txt <- unserialize(charToRaw(base64Decode("QQoyCjEzNDkxMwoxMzE4NDAKMTYKNgoyNjIxNTMKMjEKI1wwNDBUQVJFQVwwNDAxXDA0MEVqZXJjaWNpb1wwNDAxCjI2MjE1MwoxMQojXDA0MENpZFwwNDBSZXllcwoyNjIxNTMKMAoKMjYyMTUzCjE3CmdcMDQwPC1cMDQwZnVuY3Rpb24oeCl7CjI2MjE1MwoxNQpcMDQwXDA0MDEvKDErZXhwKC14KSkKMjYyMTUzCjEKfQo=")))
+funcion.1.txt
+funcion <- try(eval(parse(text=funcion.1.txt)), silent=TRUE)
+i <- 1
+funcion(1)
+funcion(0)
+raiz.pruebas <- paste('prueba_',1,#
+                            '_',1,#
+                            sep='' )
+archivos <- list.files(path="pruebas",#
+                             pattern=raiz.pruebas)
+archivos
+raiz.sol <- "sol_1_1"
+archivos.sol <- list.files(path='soluciones',#
+                                 pattern=raiz.sol)
+archivos.sol
+?mapply
+paste("./soluciones/",raiz.sol,".R",sep="")
+source(paste("./soluciones/",raiz.sol,".R",sep=""))
+f <- archivos[1]
+texto.eval <- paste(f,'(funcion',raiz.sol,')',sep="")
+texto.eval <- paste(raiz.pruebas,'(funcion',raiz.sol,')',sep="")
+texto.eval <- paste(f,'(funcion,',raiz.sol,')',sep="")
+texto.eval <- paste(raiz.pruebas,'(funcion,',raiz.sol,')',sep="")
+texto.eval
+source(paste("pruebas/",f,sep=""))
+solucion
+funcion
+sol_1_1
+prueba_1_1(funcion,sol_1_1)
+prueba_1_1
+class(funcion)
+class(funcion) == 'function'
+abs(funcion(2) - sol_1_1(2))  < 0.001
+resultado <- evalWithTimeout(try(eval(parse(text=texto.eval)),#
+                                         silent=TRUE),#
+                                     timeout=20,  onTimeout="error")
+resultado
+if("try-error" %in% class(resultado)) {correcto <- 0; break}
+correcto
+correcto <- 1
+true*10
+TRUE*10
+raiz.pruebas <- paste('prueba_',datos[i,'tarea'],#
+                            '_',datos[i,'ejercicio'],#
+                            sep='' )#
+      raiz.sol <- paste('sol_',#
+                        datos[i,'tarea'],'-',#
+                        datos[i,'ejercicio'])#
+      archivos <- list.files(path="pruebas",#
+                             pattern=raiz.pruebas)#
+      source(paste("./soluciones/",raiz.sol,".R",sep=""))
+raiz.sol
+raiz.pruebas
+calificacion <- correcto*10
+calificacion
+query.fin.1 <- paste('update entregas set evaluado=1, calificacion=',#
+                           calificacion,sep='')
+query.fin.1
