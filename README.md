@@ -58,6 +58,13 @@ Correr
 
 6) Checar instalación: abrir http://dirección-de-ip/
 
+    SHELL=/bin/bash
+	HOME=/home/cid/evaluador-tareas/R
+	PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+
+	*/2 * * * * R CMD BATCH calificar.R
+
+Nota: verificar que las librerías de R estén instaladas en un lugar en donde pueda encontrarlas ( instalar con sudo).
 
 Cómo usar
 ---------
