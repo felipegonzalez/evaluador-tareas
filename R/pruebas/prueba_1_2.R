@@ -1,3 +1,5 @@
+library(boot)
+
 prueba_1_2 <- function(fun, fun_solucion){
   error.1 <- FALSE
   y <- c(1,0)
