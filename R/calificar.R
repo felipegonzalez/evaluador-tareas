@@ -36,8 +36,8 @@ if(nrow(datos) >0 ) {
                         sep='')
       archivos <- list.files(path="pruebas",
                              pattern=raiz.pruebas)
-      source(paste("soluciones/",raiz.sol,".R",sep=""))
       if(length(archivos) >= 1){
+        source(paste("soluciones/",raiz.sol,".R",sep=""))
         f <- archivos[1]
         source(paste("pruebas/",f,sep=""))
         texto.eval <- paste(raiz.pruebas,'(funcion,',raiz.sol,')',sep="")
