@@ -26,17 +26,17 @@ if(nrow(datos) >0 ) {
     if("try-error" %in% class(funcion)){
       correcto<- FALSE
     } else {
-
       # obtener archivos de evaluación y prueba
       raiz.pruebas <- paste('prueba_',datos[i,'tarea'],
                             '_',datos[i,'ejercicio'],
                             sep='' )
       raiz.sol <- paste('sol_',
-                        datos[i,'tarea'],'-',
-                        datos[i,'ejercicio'])
+                        datos[i,'tarea'],'_',
+                        datos[i,'ejercicio'],
+                        sep='')
       archivos <- list.files(path="pruebas",
                              pattern=raiz.pruebas)
-      source(paste("./soluciones/",raiz.sol,".R",sep=""))
+      source(paste("soluciones/",raiz.sol,".R",sep=""))
     
       for(f in archivos){ 
         source(paste("pruebas/",f,sep=""))
