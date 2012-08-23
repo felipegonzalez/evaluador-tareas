@@ -37,8 +37,8 @@ if(nrow(datos) >0 ) {
       archivos <- list.files(path="pruebas",
                              pattern=raiz.pruebas)
       source(paste("soluciones/",raiz.sol,".R",sep=""))
-    
-      for(f in archivos){ 
+      if(length(archivos) >= 1){
+        f <- archivos[1]
         source(paste("pruebas/",f,sep=""))
         texto.eval <- paste(raiz.pruebas,'(funcion,',raiz.sol,')',sep="")
         resultado <- evalWithTimeout(try(eval(parse(text=texto.eval)),
@@ -47,21 +47,23 @@ if(nrow(datos) >0 ) {
         print(resultado)
         # si hubo un error en la evaluación o tuvo un error (ejercicio mal)
         if("try-error" %in% class(resultado) || resultado){
-          correcto <- FALSE; break
+          correcto <- FALSE
+          break
         }
-      
         correcto <- TRUE
+        
+        calificacion <- correcto*10
+        print('Actualizar base de datos')
+        query.fin.1 <- paste('update entregas set evaluado=1, calificacion=',
+                             calificacion,sep='') 
+        query.fin.2 <- paste( query.fin.1,
+                             ' where IDentrega=',
+                             datos[i,'IDentrega'],
+                             sep='')
+        rs.1 <- dbSendQuery(con, query.fin.2)
       }
-      calificacion <- correcto*10
-      print('Actualizar base de datos')
-      query.fin.1 <- paste('update entregas set evaluado=1, calificacion=',
-                           calificacion,sep='') 
-      query.fin.2 <- paste( query.fin.1,
-                           ' where IDentrega=',
-                           datos[i,'IDentrega'],
-                           sep='')
-      rs.1 <- dbSendQuery(con, query.fin.2)
     }
   }
+}
 }
 dbDisconnect(con)
