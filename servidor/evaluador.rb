@@ -41,7 +41,7 @@ get '/' do
     id = row[0]
     con.close()
     con = Mysql.new(settings.servidor,settings.user,settings.pass,settings.bd)
-    @res = con.query("select tarea, ejercicio, calificacion from entregas where IDusuario = '#{id}' and evaluado = 1")
+    @res = con.query("select tarea, ejercicio, max(calificacion),count(*) from entregas where IDusuario = '#{id}' and evaluado = 1 group by tarea, ejercicio")
     haml :resultados
   else
     redirect to('/')
@@ -92,11 +92,24 @@ post '/evaluador' do
     row = res.fetch_row
     id = row[0]
     con.close()
+    aceptar = true
+    # checar que no tenga calificación de 10
+    con = Mysql.new(settings.servidor,settings.user,settings.pass,settings.bd)
+    res = con.query("select max(calificacion) from entregas where tarea = '#{tarea}' and ejercicio='#{ejercicio}' and IDusuario = '#{id}'")
+    if res.num_rows >=1 
+      row = res.fetch_row
+      calif = row[0].to_i
+      puts(calif)
+      if calif == 10
+        aceptar = false
+        resp = "Ejercicio previamente completado\n"
+      end
+    end
+
     # checar el timestamp
     con = Mysql.new(settings.servidor,settings.user,settings.pass,settings.bd)
     res = con.query("select max(ts) from entregas where IDusuario='#{id}'")
-    aceptar = true
-    if res.num_rows >= 1
+    if aceptar and res.num_rows >= 1
       row = res.fetch_row
       ts = row[0]
       ultimo = DateTime.strptime(ts,"%Y-%m-%d %H:%M:%S")
@@ -106,19 +119,19 @@ post '/evaluador' do
       if dif < 10 
         aceptar = false
         restante = 10 - dif
-        res = "Tienes que esperar #{restante} minuto(s)\n"
+        resp = "Tienes que esperar #{restante} minuto(s)\n"
       end
     end
     if aceptar 
       # recibir el ejercicio
       con = Mysql.new(settings.servidor,settings.user,settings.pass,settings.bd)
       con.query("insert into entregas (IDusuario,tarea,ejercicio,objeto,evaluado,calificacion) values (#{id},#{tarea},#{ejercicio},'#{funcion}',0,NULL)")
-      res ="Recibido\n"
+      resp ="Recibido\n"
     end
   else
-    res = "Fallo\n"
+    resp = "Fallo\n"
   end
-  res
+  resp
 end
 
 
