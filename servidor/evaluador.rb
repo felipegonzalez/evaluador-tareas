@@ -84,21 +84,37 @@ post '/evaluador' do
   tarea = params[:tarea]
   ejercicio = params[:ejercicio]
   funcion = params[:funcion]
-  puts(nombre)
-  puts(pass)
-  puts(tarea)
-  puts(ejercicio)
-  puts(funcion)
+  puts("Recibido de #{nombre}")
+  puts("Tarea #{tarea} Ejercicio #{ejercicio}")
   con = Mysql.new(settings.servidor,settings.user,settings.pass,settings.bd)
   res = con.query("select IDusuario from usuarios where nombre='#{nombre}' and pass='#{pass}'")
   if res.num_rows >= 1
     row = res.fetch_row
     id = row[0]
     con.close()
-    puts(funcion)
+    # checar el timestamp
     con = Mysql.new(settings.servidor,settings.user,settings.pass,settings.bd)
-    con.query("insert into entregas (IDusuario,tarea,ejercicio,objeto,evaluado,calificacion) values (#{id},#{tarea},#{ejercicio},'#{funcion}',0,NULL)")
-    res ="Recibido\n"
+    res = con.query("select max(ts) from entregas where IDusuario='#{id}'")
+    aceptar = true
+    if res.num_rows >= 1
+      row = res.fetch_row
+      ts = row[0]
+      ultimo = DateTime.strptime(ts,"%Y-%m-%d %H:%M:%S")
+      limite = DateTime.now
+      puts("En #{ultimo}")
+      dif = ((limite - ultimo)*24*60).to_i
+      if dif < 10 
+        aceptar = false
+        restante = 10 - dif
+        res = "Tienes que esperar #{restante} minuto(s)\n"
+      end
+    end
+    if aceptar 
+      # recibir el ejercicio
+      con = Mysql.new(settings.servidor,settings.user,settings.pass,settings.bd)
+      con.query("insert into entregas (IDusuario,tarea,ejercicio,objeto,evaluado,calificacion) values (#{id},#{tarea},#{ejercicio},'#{funcion}',0,NULL)")
+      res ="Recibido\n"
+    end
   else
     res = "Fallo\n"
   end
