@@ -4,7 +4,7 @@ library(R.utils)
 library(yaml)
 
 # consulta y extracción de SQL
-config <- yaml.load_file('../servidor/config.yml')
+config <- yaml.load_file('../config.yml')
 
 con = dbConnect(MySQL(), host=config$servidor,
         dbname=config$bd, user=config$user, password=config$pass)
