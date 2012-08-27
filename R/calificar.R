@@ -48,10 +48,9 @@ if(nrow(datos) >0 ) {
         # si hubo un error en la evaluación o tuvo un error (ejercicio mal)
         if("try-error" %in% class(resultado) || resultado){
           correcto <- FALSE
-          break
+        } else {
+          correcto <- TRUE
         }
-        correcto <- TRUE
-        
         calificacion <- correcto*10
         print('Actualizar base de datos')
         query.fin.1 <- paste('update entregas set evaluado=1, calificacion=',
