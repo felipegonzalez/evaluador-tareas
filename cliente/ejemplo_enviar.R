@@ -18,7 +18,7 @@ enviar.fun <- function(nombre, my_key, funcion.archivo, tarea, ejercicio, nombre
       .encoding='utf-8',curl=curl)
    cat(html)
    cat('Puedes ver tus resultados en: \n')
-   cat(paste(serv.1, '/resultados', '?nombre=', nombre, sep=''))
+   cat(serv.1)
    cat('\n')
 }
 
@@ -36,7 +36,7 @@ enviar <- function(){
    cat("4 descenso.R\n")
    parte <- scan(what=double(), n = 1, quiet=TRUE)
    # parametros de archivos y tareas para mandar
-   print(parte)
+   #print(parte)
    funcion.archivo <- switch(as.integer(parte),
                              "logit.R",
                              "J_perdida.R",
