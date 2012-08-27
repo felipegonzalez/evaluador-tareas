@@ -3,7 +3,7 @@
 
 J.perdida <- function(y,X){
   function(theta){
-    h <- g(X %*% as.matrix(theta))
+    h <- inv.logit(X %*% as.matrix(theta))
     -(1/nrow(X))*(sum(y*log(h)) + sum((1-y)*log(1-h)))
   }
 }
