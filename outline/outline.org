@@ -1,13 +1,14 @@
 #+TITLE: Cómo usar R para calificar tareas de programación
+#+OPTIONS: toc:nil
 
 * ¿Por qué?
 
-  - Coursera
-
+#+BEGIN_CENTER
 #+CAPTION Logo de Coursera
-[[./img/coursera.jpeg]]
+[[./img/coursera.png]]
+#+END_CENTER
 
-** Ventajas
+- Ventajas
 
   - Facilidad de evaluación
   - Evaluación no solo del resultado
@@ -15,12 +16,12 @@
  
 * Diseño
   
-** Cliente
+- Cliente
 
    - *R*
      - RCurl
     
-** Servidor
+- Servidor
 
    - *R*
      - RMySQL 
@@ -41,7 +42,7 @@
 
 * Demostración
 
-   - Demostración
+
 
 * ¿Qué sigue?
 
@@ -52,16 +53,18 @@
 
 * Muchas gracias
 
-  - *Muchas gracias*
+#+BEGIN_CENTER
+*Muchas gracias*
+#+END_CENTER
 
-** Más información
+- Más información
 
-   - [[www.coursera.org][Coursera]]  
-   - [[www.r-project.org][The R project for Statistical Computing]]
-   - [[www.ruby-lang.org/es/][Lenguaje de Programación Ruby]]
-   - [[www.sinatrarb.com][Sinatra]]
-   - [[haml-lang.com][Haml]]
-   - [[twitter.github.com/bootstrap/][Twitter Bootstrap]]
+   - [[http://www.coursera.org][Coursera]]
+   - [[http://www.r-project.org][The R project for Statistical Computing]]
+   - [[http://www.ruby-lang.org/es/][Lenguaje de Programación Ruby]]
+   - [[http://www.sinatrarb.com][Sinatra]]
+   - [[http://haml-lang.com][Haml]]
+   - [[http://twitter.github.com/bootstrap/][Twitter Bootstrap]]
 
 
 
