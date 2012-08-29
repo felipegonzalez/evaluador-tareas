@@ -108,18 +108,20 @@ post '/evaluador' do
 
     # checar el timestamp
     con = Mysql.new(settings.servidor,settings.user,settings.pass,settings.bd)
-    res = con.query("select max(ts) from entregas where IDusuario='#{id}'")
+    res = con.query("select max(ts) from entregas where IDusuario='#{id}' and tarea='#{tarea}' and ejercicio='#{ejercicio}'")
     if aceptar and res.num_rows >= 1
       row = res.fetch_row
       ts = row[0]
-      ultimo = DateTime.strptime(ts,"%Y-%m-%d %H:%M:%S")
-      limite = DateTime.now
-      puts("En #{ultimo}")
-      dif = ((limite - ultimo)*24*60).to_i
-      if dif < 10 
-        aceptar = false
-        restante = 10 - dif
-        resp = "Tienes que esperar #{restante} minuto(s)\n"
+      if not ts.nil?
+        ultimo = DateTime.strptime(ts,"%Y-%m-%d %H:%M:%S")
+        limite = DateTime.now
+        puts("En #{ultimo}")
+        dif = ((limite - ultimo)*24*60).to_i
+        if dif < 10 
+          aceptar = false
+          restante = 10 - dif
+          resp = "Tienes que esperar #{restante} minuto(s)\n"
+        end
       end
     end
     if aceptar 
