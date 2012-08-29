@@ -1,0 +1,30 @@
+
+* Introducción (1m)
+  - Explicar sobre coursera y MLclass.
+  - Ventajas de este sistema
+* Mostrar el ejemplo (2 mn)
+  - html (Explicar que se hizó con markdown)
+    y los ejercicios.
+* "Hacer" la tarea (1 mn)
+  - Hacer el ejercicio 1
+  - mostrar el ejercicio 2 ya resuelto.
+* Mandar la tarea  (2 min)
+  - Mostrar el proceso de enviar
+  - explicar brevemente el código de R.
+* Revisar la página de resultados (2 min)
+  - Mostrar página de resultados
+  - Explicar lo que se puede hacer en la página y cómo se hizó. (Haml y TB)
+* Explicar el diseño  (3 min)
+  - ¿Qué partes están implementadas en R?
+  - ¿Por qué no todo está implementado en R?
+  - Ventajas de este diseño
+* Revisar las calificaciones (2 min)
+  - ver que ahora ya está calificado
+  - Explicar el proceso y el código de R que hace la evaluación.
+  - Mostrar brevemente el código de Ruby.
+* Explicar como se diseña una tarea. (1 min)
+  - Volver al html.
+  - Y como se hace.
+* ¿Qué falta por hacer? (1 min)
+  - Explicar lo que faltaría y lo que se puede mejorar.
+* Agradecimiento

@@ -1,0 +1,67 @@
+#+TITLE: Cómo usar R para calificar tareas de programación
+
+* ¿Por qué?
+
+  - Coursera
+
+#+CAPTION Logo de Coursera
+[[./img/coursera.jpeg]]
+
+** Ventajas
+
+  - Facilidad de evaluación
+  - Evaluación no solo del resultado
+  - Ejercicios más /interesantes/
+ 
+* Diseño
+  
+** Cliente
+
+   - *R*
+     - RCurl
+    
+** Servidor
+
+   - *R*
+     - RMySQL 
+     - RCurl 
+     - yaml 
+   - *Ruby* + /Sinatra/ + /Haml/
+     - Originalmente era Apache + Rapache.
+     
+* Resumen de paquetes usados
+
+  - *R*
+    - RMySQL :: Conección con BD
+    - RCurl :: Peticiones HTML
+    - yaml :: Lectura archivos configuración yaml
+  - *Ruby*
+    - Sinatra :: Framework para aplicaciones web
+    - Haml :: Construcción de vistas
+
+* Demostración
+
+   - Demostración
+
+* ¿Qué sigue?
+
+   - Seguridad
+   - Pruebas a mayor escala
+   - Generalizar la forma de evaluación
+   - Simplificar la generación de ejercicios
+
+* Muchas gracias
+
+  - *Muchas gracias*
+
+** Más información
+
+   - [[www.coursera.org][Coursera]]  
+   - [[www.r-project.org][The R project for Statistical Computing]]
+   - [[www.ruby-lang.org/es/][Lenguaje de Programación Ruby]]
+   - [[www.sinatrarb.com][Sinatra]]
+   - [[haml-lang.com][Haml]]
+   - [[twitter.github.com/bootstrap/][Twitter Bootstrap]]
+
+
+
