@@ -1,4 +1,4 @@
-Tarea 1: Regresión logística y clasificación 
+Tarea 1: Regresión logística para clasificación 
 =============================================
 
 En esta tarea se construyen predicciones basadas en regresión logística
@@ -8,6 +8,7 @@ regularizada, usando máximo descenso para ajustar los modelos.
 En primer lugar, implementa la inversa de la función logística en `logit.R`, dada por $g(x) = \frac{1}{1+e^{-x}}$. 
 
 Debes obtener:
+
 
 
 ```r
@@ -54,11 +55,12 @@ $$ \frac{1}{N} \sum_{i=1}^N (h_\theta(x^i)-y^i)x^i_j$$
 Implementa el cálculo de la función de pérdida $J$ en la funcion `J_perdida.R` , que toma como parámetros un vector de salida, una matriz de entradas, y devuelve una función que depende de $\theta$. Debes obtener:
 
 
+
 ```r
 source("funciones/J_perdida.R")
 y <- c(0, 1, 0, 0, 0, 0, 0, 1, 1)
-X <- matrix(c(-1.5, 1, 1.2, 0, 0, 1, 0, 0, -2, -2, 1, -1, 1, 0, -1, 0, 0, 0), 
-    ncol = 2, byrow = TRUE)
+X <- matrix(c(-1.5, 1, 1.2, 0, 0, 1, 0, 0, -2, -2, 1, -1, 1, 0, -1, 
+    0, 0, 0), ncol = 2, byrow = TRUE)
 theta.0 <- c(-0.5, 1.2)
 theta.1 <- c(-0.5, 0)
 J <- J.perdida(y = y, X = X)
@@ -66,7 +68,7 @@ J(theta = theta.0)
 ```
 
 ```
-## [1] 7.306
+## [1] 0.8118
 ```
 
 ```r
@@ -74,11 +76,14 @@ J(theta = theta.1)
 ```
 
 ```
-## [1] 6.989
+## [1] 0.7766
 ```
 
 
+
+
 Si graficamos esta función obtenemos:
+
 
 
 ```r
@@ -105,6 +110,7 @@ contour(theta_x, theta_y, z, nlevels = 10)
 Ahora implementamos el cálculo del gradiente para después usar descenso máximo. Escribe tu función en `J_gradiente.R`
 
 
+
 ```r
 source("funciones/J_gradiente.R")
 J.grad.1 <- J.grad(y, X)
@@ -128,6 +134,8 @@ J.grad.1(c(-1, 0))
 ```
 
 
+
+
 *Completa el script J_gradiente.R y envía tu resultado*
 
 
@@ -135,6 +143,7 @@ J.grad.1(c(-1, 0))
 ## Ejercicio 4
 
 Finalmente encontramos $\theta$ que minimiza la pérdida empírica. Podríamos usar alguno de los algoritmos de la funcion `optim` :
+
 
 
 ```r
@@ -157,9 +166,11 @@ points(resultado$par[1], resultado$par[2], col = "red", pch = 20)
 En este ejemplo resolveremos el problema de minimización por el método de descenso máximo. Implementa la función `descenso`  en `descenso.R`, que toma una función de pérdida, su gradiente, el tamaño de paso, y la tolerancia:
 
 
+
 ```r
 source("funciones/descenso.R")
-descenso(perdida = J, gradiente = J.grad.1, inicio = c(0, 0), step = 1, n.iter = 2)
+descenso(perdida = J, gradiente = J.grad.1, inicio = c(0, 0), step = 1, 
+    n.iter = 2)
 ```
 
 ```
@@ -172,15 +183,18 @@ descenso(perdida = J, gradiente = J.grad.1, inicio = c(0, 0), step = 1, n.iter =
 ## 
 ## 
 ## $J
-## [1] 6.238 6.147
+## [1] 0.6931 0.6830
 ## 
 ```
 
 
 
+
+
+
 ```r
-iter <- descenso(perdida = J, gradiente = J.grad.1, inicio = c(0, 0), step = 1, 
-    n.iter = 100)
+iter <- descenso(perdida = J, gradiente = J.grad.1, inicio = c(0, 
+    0), step = 1, n.iter = 100)
 plot(iter$J)
 ```
 
@@ -195,20 +209,30 @@ iter$theta[[100]]
 ```
 
 
+
+
 *Completa el script descenso.R y envía tu resultado*
 
 ## Ejercicio 5
 
+Finalmente, aplicamos nuestro trabajo a un problema de clasificación de correo electrónico en las categorías spam - no spam. Primero entrenamos nuestro predictor:
+
+
 
 ```r
 library(ElemStatLearn)
-y <- as.numeric(spam$spam == "spam")
-X <- scale(as.matrix(spam[, 1:45]))
+set.seed(280572)
+muestra <- sample(1:nrow(spam), 4000)
+spam.entrena <- spam[muestra, ]
+spam.prueba <- spam[!(1:nrow(spam) %in% muestra), ]
+
+y <- as.numeric(spam.entrena$spam == "spam")
+X <- scale(as.matrix(spam.entrena[, 1:45]))
 dim(X)
 ```
 
 ```
-## [1] 4601   45
+## [1] 4000   45
 ```
 
 ```r
@@ -216,7 +240,7 @@ length(y)
 ```
 
 ```
-## [1] 4601
+## [1] 4000
 ```
 
 ```r
@@ -224,16 +248,57 @@ J.spam <- J.perdida(y, X)
 J.grad.spam <- J.grad(y, X)
 iter <- descenso(perdida = J.spam, gradiente = J.grad.spam, inicio = rep(0, 
     45), step = 1, n.iter = 200)
-plot(iter$J)
 ```
 
-![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-61.png) 
+
+
+
+Obtenemos los siguientes coeficientes:
+
+
 
 ```r
-plot(iter$theta[[200]])
+plot(iter$J, type = "l")
 ```
 
-![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-62.png) 
+![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-71.png) 
+
+```r
+coefs.1 <- iter$theta[[200]]
+plot(coefs.1)
+```
+
+![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-72.png) 
+
+
+Ahora hacemos predicciones para la muestra de entrenamiento:
+
+
+
+```r
+y.prueba <- as.numeric(spam.prueba$spam == "spam")
+X.prueba <- scale(as.matrix(spam.prueba[, 1:45]), center = attr(X, 
+    "scaled:center"), scale = attr(X, "scaled:scale"))
+clasificacion <- g(X.prueba %*% coefs.1) > 0.5
+```
+
+
+
+
+La matriz de confusion para la muestra de validación es
+
+
+
+```r
+table(clasificacion, y.prueba)
+```
+
+```
+##              y.prueba
+## clasificacion   0   1
+##         FALSE 332  42
+##         TRUE   29 198
+```
 
 
 

@@ -2,5 +2,5 @@
 # Cid Reyes
 
 g <- function(x){
-  1/(1+exp(-x))
+      1/(1+exp(-x))
 }

@@ -13,7 +13,14 @@
   - Facilidad de evaluación
   - Evaluación no solo del resultado
   - Ejercicios más /interesantes/
- 
+
+* Diseño
+
+#+BEGIN_CENTER
+#+CAPTION Diagrama del sistema
+[[./img/diagrama.png]]
+#+END_CENTER
+
 * Diseño
   
 - Cliente
@@ -30,19 +37,7 @@
    - *Ruby* + /Sinatra/ + /Haml/
      - Originalmente era Apache + Rapache.
      
-* Resumen de paquetes usados
-
-  - *R*
-    - RMySQL :: Conección con BD
-    - RCurl :: Peticiones HTML
-    - yaml :: Lectura archivos configuración yaml
-  - *Ruby*
-    - Sinatra :: Framework para aplicaciones web
-    - Haml :: Construcción de vistas
-
 * Demostración
-
-
 
 * ¿Qué sigue?
 

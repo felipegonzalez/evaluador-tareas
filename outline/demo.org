@@ -1,30 +1,65 @@
+#+TITLE: Notas para la presentación
 
 * Introducción (1m)
   - Explicar sobre coursera y MLclass.
+    - Profesor Andrew Ng
+    - Enseñanza masiva y sin disminución de la calidad
   - Ventajas de este sistema
-* Mostrar el ejemplo (2 mn)
-  - html (Explicar que se hizó con markdown)
-    y los ejercicios.
-* "Hacer" la tarea (1 mn)
-  - Hacer el ejercicio 1
-  - mostrar el ejercicio 2 ya resuelto.
-* Mandar la tarea  (2 min)
-  - Mostrar el proceso de enviar
-  - explicar brevemente el código de R.
-* Revisar la página de resultados (2 min)
-  - Mostrar página de resultados
-  - Explicar lo que se puede hacer en la página y cómo se hizó. (Haml y TB)
-* Explicar el diseño  (3 min)
+    - Facilidad
+    - Evaluación no solamente del resultado
+    - experiencia "practica"
+* Diagrama
+- Explicar diagrama
+
+** Explicar el diseño  
   - ¿Qué partes están implementadas en R?
   - ¿Por qué no todo está implementado en R?
   - Ventajas de este diseño
-* Revisar las calificaciones (2 min)
+
+* Explicación paquetes
+  - RCurl
+  - RMySQL
+  - yaml
+  - Ruby
+  - Sinatra
+  - Haml
+
+* Ejemplo
+** Mostrar el ejemplo (2 mn)
+  - Explicación de lo que ve el alumno
+  - html (Explicar que se hizó con markdown)
+          y los ejercicios.
+** "Hacer" la tarea (1 mn)
+  - Hacer el ejercicio 1
+  - Mostrar el ejercicio 2 ya resuelto.
+** Mandar la tarea  (2 min)
+  - Mostrar el proceso de enviar
+  - explicar brevemente el código de R.
+** Revisar la página de resultados (2 min)
+  - Mostrar página de resultados
+  - Explicar lo que se puede hacer en la página y cómo se hizó. (Haml y TB)
+  - Mostrar el template
+** Revisar las calificaciones (2 min)
   - ver que ahora ya está calificado
   - Explicar el proceso y el código de R que hace la evaluación.
   - Mostrar brevemente el código de Ruby.
-* Explicar como se diseña una tarea. (1 min)
+** Explicar como se diseña una tarea. (1 min)
+  - Rstudio
   - Volver al html.
   - Y como se hace.
+
 * ¿Qué falta por hacer? (1 min)
   - Explicar lo que faltaría y lo que se puede mejorar.
+  - Seguridad
+  - Pruebas
+  - Agilizar el proceso de generación de tareas
+
 * Agradecimiento
+
+- Gracias
+
+** Repositorio de Git
+   - Donde pueden ver el código
+
+
+
