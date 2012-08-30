@@ -1,16 +1,18 @@
 !!!
 %html
   %head
-    %title Aprendizaje Estadístico
+    %title Mi clase
     %link(rel="stylesheet" href="css/styles.css")
   %body  
     .hero-unit
-      %h1 Aprendizaje Estadístico
+      %h1 Mi clase
       %p Un calificador autómatico de tareas desarrollado con tecnologías de R, Ruby, Sinatra y Haml y Twitter Bootstrap.    
     .container
       .page-header
         %h3 Usuario
       %p.lead=@username
+      %h4 Pendientes
+      %p=@sevals
       .page-header
         %h3 Resultados
       .row

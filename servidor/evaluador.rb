@@ -42,6 +42,9 @@ get '/' do
     con.close()
     con = Mysql.new(settings.servidor,settings.user,settings.pass,settings.bd)
     @res = con.query("select tarea, ejercicio, max(calificacion),count(*) from entregas where IDusuario = '#{id}' and evaluado = 1 group by tarea, ejercicio")
+    seval = con.query("select count(*) from entregas where IDusuario = '#{id}' and evaluado = 0")
+    seval_row = seval.fetch_row
+    @sevals = seval_row[0]
     haml :resultados
   else
     redirect to('/')
